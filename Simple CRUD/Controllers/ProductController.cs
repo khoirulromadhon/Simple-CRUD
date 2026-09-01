@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Simple_CRUD.Services;
 using Simple_CRUD.ViewModels;
 
@@ -7,6 +8,7 @@ namespace Simple_CRUD.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly ProductService _productService;

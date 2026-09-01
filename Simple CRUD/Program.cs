@@ -57,7 +57,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Simple CRUD API V1");
+    c.InjectJavascript("/swagger-custom.js");
+});
 
 app.MapControllers();
 app.MapRazorPages();
