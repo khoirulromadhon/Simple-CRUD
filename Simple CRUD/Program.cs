@@ -17,6 +17,7 @@ var audience = builder.Configuration["Jwt:Audience"];
 builder.Services.AddSingleton(new JwtHelper(key, issuer, audience));
 
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ProductService>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
