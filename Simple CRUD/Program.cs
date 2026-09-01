@@ -1,23 +1,64 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Simple_CRUD.Models;
+using System.Text;
+using Simple_CRUD.Helpers;
+using Simple_CRUD.Services;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+var key = builder.Configuration["Jwt:Key"];
+var issuer = builder.Configuration["Jwt:Issuer"];
+var audience = builder.Configuration["Jwt:Audience"];
+builder.Services.AddSingleton(new JwtHelper(key, issuer, audience));
+
+builder.Services.AddScoped<AuthService>();
+
+builder.Services.AddRazorPages();
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
+builder.Services.AddSession();
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+        };
+    });
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.UseStaticFiles();
 
-app.UseHttpsRedirection();
+app.UseRouting();
 
+app.UseSession();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.MapControllers();
+app.MapRazorPages();
 
 app.Run();
