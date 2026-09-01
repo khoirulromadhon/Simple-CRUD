@@ -1,3 +1,6 @@
+CREATE DATABASE simple_crud;
+GO
+
 create table Product(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	Name Varchar(51) not null unique,
