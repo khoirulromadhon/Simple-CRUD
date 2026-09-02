@@ -64,6 +64,8 @@ app.UseSwaggerUI(c =>
 });
 
 app.MapControllers();
+// Make Product Index the app root by redirecting "/" to "/Product/"
+app.MapGet("/", () => Results.Redirect("/Product/"));
 app.MapRazorPages();
 
 app.Run();

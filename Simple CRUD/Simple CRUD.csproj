@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Configurations\" />
-    <Folder Include="Pages\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>

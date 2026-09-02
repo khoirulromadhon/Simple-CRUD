@@ -8,7 +8,7 @@ namespace Simple_CRUD.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProductController : ControllerBase
     {
         private readonly ProductService _productService;

@@ -15,8 +15,6 @@ namespace Simple_CRUD.Services
 
         public async Task<VMProduct> Create(VMProduct order)
         {
-            await using var transaction = await _context.Database.BeginTransactionAsync();
-
             try
             {
                 if (order.Id == null || order.Id == 0)
