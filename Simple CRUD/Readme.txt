@@ -1,2 +1,2 @@
 1. Eksekusi Query di QueryStarter.sql terlebih dahulu
-2. Jalankan di local, dengan mengakses ke url https://localhost:44361/swagger
+2. Sesuaikan Connection String, dengan env local anda
